@@ -2,53 +2,11 @@
 # Import Needed Libs
 import os
 import time
+import password_manager as pm
+import utils as us
 # import colorama
-# Adding Passwords Function
-def addpassword(website, username, password, notes):
-    pass_data = f"Website: {website}\nUsername: {username}\nPassword: {password}\nNote: {notes}\n------------\n"
-    with open("passwords.txt", "a") as p:
-        p.write(pass_data)
-    print("Password Added Successfully")
-# Viewing Passwords Function
-def viewpassword():
-    try:
-        with open("passwords.txt", "r") as p:
-            print(f"Your Passwords:\n{p.read()}")
-    except FileNotFoundError:
-        print("File Not Found")
-    except:
-        print("Something Went Wrong!")
-# Searching Function
-def searchpassword():
-    print("Enter Website Name")
-    website = input("Website: ")
-    print("------------")
-    with open("passwords.txt", "r") as file:
-        entries = file.read().split("------------")
-    
-    found = False
-    for entry in entries:
-        if f"Website: {website}" in entry:
-            print(entry)
-            found = True
-    
-    if not found:
-        print("Not Found")
-# Deleting Passwords Function
-def deletepassword():
-    print("Enter Website Name")
-    website = input("Website: ")
-    print("------------")
-    with open("passwords.txt", "r") as file:
-        entries = file.read().split("------------")
-    
-    with open("passwords.txt", "w") as file:
-        for entry in entries:
-            if f"Website: {website}" not in entry:
-                file.write(entry + "------------")
-    print("Deleted Successfully")
 # Main Code Block
-print("Welcome To Password ManagerV1 By Dev WiredIn-Junior")
+print("Welcome To Password ManagerV2 By Dev WiredIn-Junior")
 while True:
     print("==== Password Manager ====")
     print("1.Add Password")
@@ -69,15 +27,33 @@ while True:
                 continue
             break
         user = input("Please Enter Username: ")
-        pw = input("Please Enter The Password: ")
+        finalpassword = ""
+        pw_gen_ask = input("Would You Like To Generate Strong Password(Y/n, default = N)").lower()
+        if pw_gen_ask == "y":
+            passlength = input("Enter Password Length(Default 8): ")
+            if passlength == "":
+                passlength = 8
+            else:
+                None
+            generatedpassword = us.password_generator(passlength)
+            print(f"Generated Password: {generatedpassword}")
+            generatedpassword = finalpassword
+        else:
+            pw = input("Please Enter The Password: ")
+            pw = finalpassword
         notes = input("Enter Note: ")
-        addpassword(site, user, pw, notes)
+        pm.addpassword(site, user, finalpassword, notes)
+        time.sleep(1)
+        us.clearscreen()
     elif choice == "2":
-        viewpassword()
+        us.clearscreen()
+        pm.viewpassword()
     elif choice == "3":
-        searchpassword()
+        pm.searchpassword()
     elif choice == "4":
-        deletepassword()
+        pm.deletepassword()
+        time.sleep(2)
+        us.clearscreen()
     elif choice == "5":
         print("See You Soon..")
         time.sleep(3)
