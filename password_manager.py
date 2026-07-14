@@ -1,7 +1,10 @@
-# Module For Password Manager Including Functions For Adding, Viewing, Searching, Editing And Deleting Passwords
+# Module For Password Manager Including Functions For Master Password, Adding, Viewing, Searching, Editing And Deleting Passwords
+# Master Password Function
+def masterpassword():
+    pass
 # Adding Passwords Function
-def addpassword(website, username, password, notes):
-    pass_data = f"Website: {website}\nUsername: {username}\nPassword: {password}\nNote: {notes}\n------------\n"
+def addpassword(website, username, password, strength ,notes):
+    pass_data = f"Website: {website}\nUsername: {username}\nPassword: {password}\nStrength: {strength}\nNote: {notes}\n------------\n"
     with open("passwords.txt", "a") as p:
         p.write(pass_data)
     print("Password Added Successfully")

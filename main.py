@@ -41,8 +41,10 @@ while True:
         else:
             pw = input("Please Enter The Password: ")
             pw = finalpassword
+            print("Password Strength: ", us.password_strength_checker(finalpassword))
+            strength = us.password_strength_checker(finalpassword)
         notes = input("Enter Note: ")
-        pm.addpassword(site, user, finalpassword, notes)
+        pm.addpassword(site, user, finalpassword, strength ,notes)
         time.sleep(1)
         us.clearscreen()
     elif choice == "2":
@@ -57,4 +59,4 @@ while True:
     elif choice == "5":
         print("See You Soon..")
         time.sleep(3)
-        os._exit()
+        os._exit(1)
